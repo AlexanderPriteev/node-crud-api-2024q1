@@ -1,26 +1,25 @@
 import http from 'node:http';
 import dotenv from 'dotenv';
 import { env } from 'node:process';
+import { IRes, IUser } from './utils/interfaces';
+import post from './modules/post';
+import { NOT_IMPLEMENTED } from './utils/consts';
 import * as console from 'console';
 
 dotenv.config();
 
-interface IRes {
-  code: number;
-  message: string;
-}
+const userList: Map<string, IUser> = new Map();
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
   let response: IRes;
-
   const { method } = req;
-  console.log(method);
+
   switch (method) {
     case 'GET':
       response = { code: 200, message: 'GET' };
       break;
     case 'POST':
-      response = { code: 201, message: 'POST' };
+      response = await post(req, userList);
       break;
     case 'PUT':
       response = { code: 200, message: 'PUT' };
@@ -29,15 +28,11 @@ const server = http.createServer((req, res) => {
       response = { code: 204, message: 'DELETE' };
       break;
     default:
-      response = { code: 404, message: 'Invalid Endpoint' };
+      response = { code: 501, message: NOT_IMPLEMENTED };
   }
 
   res.writeHead(response.code, { 'Content-Type': 'application/json' });
-  res.end(
-    JSON.stringify({
-      data: response.message,
-    }),
-  );
+  res.end(JSON.stringify(response.message));
 });
 
 server.listen(env.port, () => console.log(`PORT is ${env.port}`));

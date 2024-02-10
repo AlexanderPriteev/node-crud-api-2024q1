@@ -6,3 +6,4 @@ export const INVALID_ID = 'UserId Is Invalid';
 export const NOT_FOUND = 'User Not Found';
 export const NOT_REQUIRED =
   'Does Not Contain Required Fields Or Contains Invalid Fields';
+export const USER_DEL = 'The Record Is Found And Deleted';

@@ -5,6 +5,7 @@ import { IRes, IUser } from './utils/interfaces';
 import post from './modules/post';
 import get from './modules/get';
 import { NOT_IMPLEMENTED } from './utils/consts';
+import remove from './modules/delete';
 
 dotenv.config();
 
@@ -25,7 +26,7 @@ const server = http.createServer(async (req, res) => {
       response = { code: 200, message: 'PUT' };
       break;
     case 'DELETE':
-      response = { code: 204, message: 'DELETE' };
+      response = remove(req, userList);
       break;
     default:
       response = { code: 501, message: NOT_IMPLEMENTED };

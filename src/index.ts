@@ -3,8 +3,8 @@ import dotenv from 'dotenv';
 import { env } from 'node:process';
 import { IRes, IUser } from './utils/interfaces';
 import post from './modules/post';
+import get from './modules/get';
 import { NOT_IMPLEMENTED } from './utils/consts';
-import * as console from 'console';
 
 dotenv.config();
 
@@ -16,7 +16,7 @@ const server = http.createServer(async (req, res) => {
 
   switch (method) {
     case 'GET':
-      response = { code: 200, message: 'GET' };
+      response = get(req, userList);
       break;
     case 'POST':
       response = await post(req, userList);

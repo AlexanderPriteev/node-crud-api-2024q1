@@ -1,6 +1,6 @@
 export interface IRes {
   code: number;
-  message: string | IUser;
+  message: string | IUser | IUser[];
 }
 
 export interface IUser {

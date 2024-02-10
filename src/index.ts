@@ -6,6 +6,7 @@ import post from './modules/post';
 import get from './modules/get';
 import { NOT_IMPLEMENTED } from './utils/consts';
 import remove from './modules/delete';
+import put from './modules/put';
 
 dotenv.config();
 
@@ -23,13 +24,13 @@ const server = http.createServer(async (req, res) => {
       response = await post(req, userList);
       break;
     case 'PUT':
-      response = { code: 200, message: 'PUT' };
+      response = await put(req, userList);
       break;
     case 'DELETE':
       response = remove(req, userList);
       break;
     default:
-      response = { code: 501, message: NOT_IMPLEMENTED };
+      response = { code: 400, message: NOT_IMPLEMENTED };
   }
 
   res.writeHead(response.code, { 'Content-Type': 'application/json' });

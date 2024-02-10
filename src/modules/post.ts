@@ -21,7 +21,6 @@ export default async function post(
       return data;
     }
     const dataObj = JSON.parse(message);
-    console.log(dataObj);
     const newUser = { id: uuidv4(), ...dataObj } as IUser;
     userList.set(newUser.id, newUser);
     data = { code: 201, message: newUser };

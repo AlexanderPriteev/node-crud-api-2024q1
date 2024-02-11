@@ -1,8 +1,8 @@
 import { IncomingMessage } from 'node:http';
-import { IRes, IUser } from '../utils/interfaces';
-import { INVALID_ENDPOINT, SERVER_ERR } from '../utils/consts';
-import getUser from '../utils/getUser';
-import { isHobbies } from '../utils/isUser';
+import { IRes, IUser } from '../../utils/interfaces';
+import { INVALID_ENDPOINT, SERVER_ERR } from '../../utils/consts';
+import getUser from '../../utils/getUser';
+import { isHobbies } from '../../utils/isUser';
 
 export default async function put(
   req: IncomingMessage,

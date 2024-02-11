@@ -1,8 +1,8 @@
-import { IRes, IUser } from '../utils/interfaces';
+import { IRes, IUser } from '../../utils/interfaces';
 import { v4 as uuidv4 } from 'uuid';
 import { IncomingMessage } from 'node:http';
-import { INVALID_ENDPOINT, NOT_REQUIRED, SERVER_ERR } from '../utils/consts';
-import isUser from '../utils/isUser';
+import { INVALID_ENDPOINT, NOT_REQUIRED, SERVER_ERR } from '../../utils/consts';
+import isUser from '../../utils/isUser';
 
 export default async function post(
   req: IncomingMessage,

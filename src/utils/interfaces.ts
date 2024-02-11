@@ -9,3 +9,8 @@ export interface IUser {
   age: number;
   hobbies: string[];
 }
+
+export interface IMessage {
+  type: string;
+  data: [string, IUser][];
+}

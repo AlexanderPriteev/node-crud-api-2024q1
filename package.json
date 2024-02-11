@@ -9,8 +9,9 @@
   "scripts": {
     "start": "nodemon --exec ts-node-dev src/index.ts",
     "start:dev": "npm run start",
+    "start:multi": "npm run start -- --multi",
     "start:prod": "npm run build && node dist/index.js",
-    "start:multi": "nodemon --exec ts-node-dev src/balancer.ts",
+    "start:prod:multi": "npm run start:prod -- --multi",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint \"src/**/*.ts\" --fix",
     "test": "jest --silent",

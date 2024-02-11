@@ -1,7 +1,7 @@
 import { IncomingMessage } from 'node:http';
-import { IRes, IUser } from '../utils/interfaces';
-import { INVALID_ENDPOINT, SERVER_ERR, USER_DEL } from '../utils/consts';
-import getUser from '../utils/getUser';
+import { IRes, IUser } from '../../utils/interfaces';
+import { INVALID_ENDPOINT, SERVER_ERR, USER_DEL } from '../../utils/consts';
+import getUser from '../../utils/getUser';
 
 export default function remove(
   req: IncomingMessage,

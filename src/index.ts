@@ -1,40 +1,28 @@
-import http from 'node:http';
 import dotenv from 'dotenv';
-import { env } from 'node:process';
-import { IRes, IUser } from './utils/interfaces';
-import post from './modules/post';
-import get from './modules/get';
-import { NOT_IMPLEMENTED } from './utils/consts';
-import remove from './modules/delete';
-import put from './modules/put';
+import { env, argv } from 'node:process';
+import { exit } from 'node:process';
+import cluster from 'node:cluster';
+import { IUser } from './utils/interfaces';
+import httpServer from './modules/server';
+import { PORT_NOT_FOUND } from './utils/consts';
+import primaryWorker from './modules/workers/primaryWorker';
+import regularWorker from './modules/workers/regularWorker';
 
 dotenv.config();
+const port = env.port;
+const isMulti = !!argv.find((e) => /^--multi/.test(e));
 
-const userList: Map<string, IUser> = new Map();
+if (!port) {
+  console.log(PORT_NOT_FOUND);
+  exit();
+}
 
-const server = http.createServer(async (req, res) => {
-  let response: IRes;
-  const { method } = req;
 
-  switch (method) {
-    case 'GET':
-      response = get(req, userList);
-      break;
-    case 'POST':
-      response = await post(req, userList);
-      break;
-    case 'PUT':
-      response = await put(req, userList);
-      break;
-    case 'DELETE':
-      response = remove(req, userList);
-      break;
-    default:
-      response = { code: 400, message: NOT_IMPLEMENTED };
-  }
-
-  res.writeHead(response.code, { 'Content-Type': 'application/json' });
-  res.end(JSON.stringify(response.message));
-});
-
-server.listen(env.port, () => console.log(`PORT is ${env.port}`));
+if (!isMulti) {
+  const userList: Map<string, IUser> = new Map();
+  httpServer(port, userList);
+} else {
+  cluster.schedulingPolicy = cluster.SCHED_RR;
+  if (cluster.isPrimary) primaryWorker();
+  else regularWorker(port);
+}

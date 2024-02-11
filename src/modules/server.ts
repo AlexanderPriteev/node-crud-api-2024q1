@@ -43,4 +43,6 @@ export default function httpServer(
   });
 
   server.listen(port, () => console.log(`PORT ${port} is ready`));
+
+  return server;
 }

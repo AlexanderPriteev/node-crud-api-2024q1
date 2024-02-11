@@ -17,7 +17,6 @@ if (!port) {
   exit();
 }
 
-
 if (!isMulti) {
   const userList: Map<string, IUser> = new Map();
   httpServer(port, userList);

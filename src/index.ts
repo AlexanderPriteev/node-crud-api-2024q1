@@ -9,7 +9,7 @@ import primaryWorker from './modules/workers/primaryWorker';
 import regularWorker from './modules/workers/regularWorker';
 
 dotenv.config();
-const port = env.port;
+const port = env.PORT;
 const isMulti = !!argv.find((e) => /^--multi/.test(e));
 
 if (!port) {
